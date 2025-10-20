@@ -1,0 +1,110 @@
+#main-nav-list {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#bars2 {
+  position: absolute;
+  top: 46px;
+  left: 26px;
+  color: #cabf62;
+}
+
+#main-navbar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  padding: 8px 24px;
+  background: #555;
+  border-radius: 4px;
+  gap: 16px;
+  margin: 0;
+}
+
+#main-navbar li {
+  /* removes bullets in list */
+  list-style: none;
+  padding: 8px 4px;
+  /* makes sure that the content inside should be positioned relative to "#main-navbar li"  */
+  position: relative;
+  height: 48px;
+}
+#main-navbar li a {
+  /* removes the underline on hyperlinks */
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 600px;
+  color: #1a1a1a;
+  transition: 0.3s ease;
+  /* center */
+  display: flex;
+  justify-content: center;
+  
+}
+#main-navbar li a:hover,
+#main-navbar li a.active {
+  color: #cabf62;
+}
+/* adding pseudo element after */
+/* #main-navbar li a.active::after - add something after content */
+#main-navbar li a.active::after
+      /* #main-navbar li a:hover::after - now apply properties of "after" class whenever you hover "#main-navbar li a" */
+      ,#main-navbar li a:hover::after {
+  content: "";
+  width: 100%;
+  height: 3.39px;
+  position: absolute;
+  /* left: 20px; */
+  bottom: -2px;
+  background: #cabf62;
+}
+#main-btn {
+  margin-left: 38px;
+}
+#main-login,
+#main-signup,
+#main-logout,
+#main-dashboard {
+  padding: 16px 40px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
+#main-login,
+#main-dashboard {
+  border: 1px solid #cabf62;
+  background-color: inherit;
+  color: #cabf62;
+}
+#main-signup,
+#main-logout {
+  background: #cabf62;
+  margin-left: 10px;
+}
+#main-signup a,
+#main-logout a {
+  color: black;
+  text-decoration: none;
+}
+#main-login a,
+#main-dashboard a {
+  color: #cabf62;
+  text-decoration: none;
+}
+@media screen and (max-width: 1230px) {
+  /*   #main-navbar {
+        padding: 6px 10px;
+      } */
+  #main-login,
+  #main-signup,
+  #main-logout,
+  #main-dashboard {
+    padding: 12px 27px;
+  }
+}
+@media screen and (max-width: 1100px) {
+  #main-nav-list {
+    display: none;
+  }
+}

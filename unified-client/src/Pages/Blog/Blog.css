@@ -1,0 +1,12 @@
+.soon {
+  /* margin: auto; */
+  width: 100vh;
+  height: 65vh;
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  margin-top: 233px;
+}
+.soon img {
+  height: 35vw;
+}

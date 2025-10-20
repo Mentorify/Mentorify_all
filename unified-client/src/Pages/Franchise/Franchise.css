@@ -1,0 +1,137 @@
+.section-body {
+    width: 100%;
+    background: #fdfae3;
+    margin-top: 117px;
+    padding: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#first-ind-col {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+    margin: 34px;
+}
+
+#boxi {
+    position: relative;
+    width: 30vw;
+    height: 36vw;
+    min-width: 451px;
+
+    /* min-height: 572px; */
+    background: #524c43;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    margin: 10px;
+}
+
+#inner-section-ind {
+    /* position: absolute; */
+    /* width: 547px;
+    height: 276px; */
+    /* left: 0px;
+    top: 171px; */
+}
+
+#inner-section-ind ul {
+    text-align: center;
+    margin: 12px;
+}
+
+#heading-text-box {
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 43px;
+
+    text-transform: capitalize;
+
+    color: #fefefe;
+}
+
+#desc-para-ind {
+    font-weight: 500;
+    font-size: 23px;
+    line-height: 38px;
+    text-align: center;
+    text-transform: capitalize;
+    color: #d5d5d5;
+    margin: 12px;
+}
+
+#enquire {
+    /* padding: 8px 16px;
+  margin: 35px 0 35px 0;
+  position: absolute;
+  bottom: -9px;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%; */
+    padding: 8px 16px;
+    margin: 35px 0 35px 0;
+    position: absolute;
+    bottom: -9px;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    width: 40%;
+    border-radius: 50px;
+    background: #D9D9D9;
+}
+
+/* enqire text  */
+#enq-text {
+    font-weight: 400;
+    font-size: 26px;
+    line-height: 38px;
+    text-align: center;
+    /* text-decoration-line: underline; */
+    color: #9e7642;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+
+@media screen and (max-width: 1530px) {
+    #first-ind-col {
+        flex-wrap: wrap;
+        justify-content: space-around;
+    }
+
+    #boxi {
+        margin: 17px;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    #boxi {
+        min-width: 340px;
+        min-height: 490px;
+    }
+
+    #enq-text {
+        font-size: 18px;
+    }
+
+    #heading-text-box {
+        font-size: 24px;
+    }
+
+    #desc-para-ind {
+        font-size: 21px;
+    }
+
+}

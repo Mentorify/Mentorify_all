@@ -1,0 +1,55 @@
+/* Print styles for proper chart rendering in PDFs */
+
+@media print {
+  /* Ensure charts render at full quality */
+  canvas {
+    max-width: 100% !important;
+    height: auto !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  /* Chart container styles */
+  .chart-container,
+  div[style*="position: relative"] {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  /* Prevent content from being cut off */
+  body {
+    margin: 0;
+  }
+
+  /* Ensure proper page sizing */
+  @page {
+    size: A4;
+    margin: 15mm;
+  }
+
+  /* Hide elements that shouldn't appear in print */
+  .no-print {
+    display: none !important;
+  }
+
+  /* Ensure cards and containers print properly */
+  .card {
+    box-shadow: none !important;
+    border: 1px solid #ddd !important;
+    page-break-inside: avoid !important;
+  }
+
+  /* Ensure text is readable */
+  body {
+    color: #000 !important;
+    background: #fff !important;
+  }
+
+  /* Force colors to print */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+}
+

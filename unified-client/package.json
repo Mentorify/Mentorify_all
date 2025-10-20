@@ -1,0 +1,73 @@
+{
+  "name": "mentorify-client",
+  "version": "1.0.0",
+  "description": "Mentorify career guidance platform - React frontend",
+  "author": "Mentorify Team",
+  "private": true,
+  "dependencies": {
+    "@syncfusion/ej2": "^19.4.48",
+    "@syncfusion/ej2-react-calendars": "^19.4.48",
+    "@syncfusion/ej2-react-charts": "^19.4.50",
+    "@syncfusion/ej2-react-dropdowns": "^19.4.52",
+    "@syncfusion/ej2-react-grids": "^19.4.50",
+    "@syncfusion/ej2-react-inputs": "^19.4.52",
+    "@syncfusion/ej2-react-kanban": "^19.4.48",
+    "@syncfusion/ej2-react-popups": "^19.4.52",
+    "@syncfusion/ej2-react-richtexteditor": "^19.4.50",
+    "@syncfusion/ej2-react-schedule": "^19.4.50",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "aos": "^3.0.0-beta.6",
+    "axios": "^1.12.2",
+    "buffer": "^6.0.3",
+    "chart.js": "^4.0.1",
+    "country-state-city": "^3.2.1",
+    "datatables.net-dt": "^2.3.4",
+    "datatables.net-react": "^1.0.1",
+    "framer-motion": "^8.1.5",
+    "html-to-pdf-js": "^0.9.3",
+    "html2canvas": "^1.4.1",
+    "http-proxy-middleware": "^3.0.5",
+    "jquery": "^3.7.1",
+    "jspdf": "^2.5.2",
+    "react": "^18.2.0",
+    "react-chartjs-2": "^5.2.0",
+    "react-dom": "^18.2.0",
+    "react-icons": "^4.3.1",
+    "react-router-dom": "^6.6.1",
+    "react-scripts": "5.0.1",
+    "react-slick": "^0.29.0",
+    "react-to-print": "^2.14.11",
+    "react-transition-group": "^4.4.5",
+    "slick-carousel": "^1.8.1",
+    "source-map-explorer": "^2.5.3",
+    "web-vitals": "^2.1.4"
+  },
+  "proxy": "http://localhost:5020",
+  "scripts": {
+    "analyze": "source-map-explorer 'build/static/js/*.js'",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
