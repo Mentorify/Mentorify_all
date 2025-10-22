@@ -4,21 +4,36 @@ const { roles } = require("../../utils/constants")
 
 const Authenticate = async (req, res, next) => {
   try {
-    const token =
-      req.cookies.jwtoken || req.header("Authorization").replace("Bearer ", "")
+    // Get token from cookie or Authorization header
+    let token = req.cookies?.jwtoken
+    
+    if (!token) {
+      const authHeader = req.header("Authorization")
+      if (authHeader && authHeader.startsWith("Bearer ")) {
+        token = authHeader.replace("Bearer ", "")
+      }
+    }
+    
+    if (!token) {
+      return res.status(401).send("Unauthorized: No Token Provided")
+    }
+    
     const verifyToken = jwt.verify(token, process.env.SECRET_KEY)
     const userData = await User.findOne({
       _id: verifyToken._id,
       "tokens.token": token,
     })
+    
     if (!userData) {
-      throw new Error("User Not Found")
+      return res.status(401).send("Unauthorized: User Not Found")
     }
+    
     req.token = token
     req.userData = userData
     next()
   } catch (error) {
-    res.status(402).send("Unauthorized : No Token Provided")
+    console.error("Authentication error:", error.message)
+    res.status(401).send("Unauthorized: Invalid Token")
   }
 }
 
