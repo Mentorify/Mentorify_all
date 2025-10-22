@@ -41,6 +41,10 @@ const Login = () => {
       } else {
         dispatch({ type: "LOGIN", payload: data })
         localStorage.setItem("user", JSON.stringify(data))
+        // Save token separately for API calls
+        if (data.token) {
+          localStorage.setItem("token", data.token)
+        }
         // Show role-specific success message
 
         const roles= {
