@@ -1,0 +1,59 @@
+on:
+  push:
+    branches: ["main"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Clone Repo
+        uses: actions/checkout@v3
+
+      - name: Configure Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: "18.x"
+
+      - name: Install Dependencies
+        run: npm i
+        working-directory: ./unified-client
+
+      - name: Build Project
+        run: CI=false npm run build
+        working-directory: ./unified-client
+
+      - name: Copy Build to EC2
+        run: |
+          echo "${{ secrets.EC2_PRIVATE_KEY }}" > key.pem
+          chmod 400 key.pem
+          scp -o StrictHostKeyChecking=no -i key.pem -r ./unified-server/ ubuntu@13.200.170.243:~/
+          scp -o StrictHostKeyChecking=no -i key.pem -r ./unified-client/build ubuntu@13.200.170.243:~/unified-server/
+
+      - name: Install Backend Dependencies and Start Backend
+        uses: appleboy/ssh-action@master
+        with:
+          host: 13.200.170.243
+          username: ubuntu
+          key: ${{ secrets.EC2_PRIVATE_KEY }}
+          port: 22
+          script: |
+            cd ~/unified-server # Assuming your backend is in the 'server' directory
+            npm install
+            pm2 start app.js # Replace 'server.js' with your backend entry point
+            pm2 save # Save the PM2 process list    
+
+      - name: Restart PM2
+        uses: appleboy/ssh-action@master
+        with:
+          host: 13.200.170.243
+          username: ubuntu
+          port: 22
+          key: ${{ secrets.EC2_PRIVATE_KEY }}
+          script: |
+            cd ~/unified-server
+            pm2 status # Check PM2 status for debugging
+            pm2 restart all
+
+      - name: Remove private key file
+        run: rm key.pem
