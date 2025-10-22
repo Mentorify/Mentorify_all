@@ -20,7 +20,8 @@ jobs:
           node-version: "20.x"
 
       - name: Install Dependencies
-        run: npm i
+        run: |
+          npm ci
         working-directory: ./unified-client
 
       - name: Build Project
