@@ -653,107 +653,6 @@ function Dashboard() {
                       <i className='fas fa-info-circle'></i> &nbsp;&nbsp;Help &
                       support
                     </a>
-
-                    <div
-                      className='modal fade'
-                      id='exampleModal'
-                      tabIndex='-1'
-                      aria-labelledby='exampleModalLabel'
-                      aria-hidden='true'
-                      data-mdb-backdrop='true'
-                      data-mdb-keyboard='true'
-                    >
-                      <div className='modal-dialog'>
-                        <div className='modal-content'>
-                          <div className='modal-header'>
-                            <h5 className='modal-title' id='exampleModalLabel'>
-                              Got questions? Contact us
-                            </h5>
-                            <button
-                              type='button'
-                              className='btn-close'
-                              data-mdb-dismiss='modal'
-                              aria-label='Close'
-                            ></button>
-                          </div>
-                          <div
-                            style={{ paddingLeft: "25px" }}
-                            className='modal-body'
-                          >
-                            <h6 style={{ marginBottom: "25px" }}>
-                              <span className='key'>
-                                <i className='fa-solid fa-phone'></i>&nbsp; Call:
-                              </span>
-                              &nbsp;&nbsp;&nbsp;&nbsp; +91 639-450-6912
-                            </h6>
-                            <h6>
-                              <span className='key'>
-                                <i className='fa-solid fa-envelope'></i>&nbsp;
-                                Email:
-                              </span>
-                              &nbsp;&nbsp;&nbsp;&nbsp; support@mentorify.com
-                            </h6>
-                          </div>
-                          {/* <form
-                            action='https://formspree.io/f/mgebvvyl'
-                            method='POST'
-                          >
-                            <div class='modal-body'>
-                              <div class='form-outline mb-4'>
-                                <input
-                                  type='text'
-                                  id='form4Example1'
-                                  class='form-control'
-                                  name='name'
-                                  required
-                                />
-                                <label class='form-label' for='form4Example1'>
-                                  Name
-                                </label>
-                              </div>
-
-                              <div class='form-outline mb-4'>
-                                <input
-                                  type='email'
-                                  id='form4Example2'
-                                  class='form-control'
-                                  name='email'
-                                  required
-                                />
-                                <label class='form-label' for='form4Example2'>
-                                  Email address
-                                </label>
-                              </div>
-
-                              <div class='form-outline mb-4'>
-                                <textarea
-                                  class='form-control'
-                                  id='form4Example3'
-                                  rows='4'
-                                  name='message'
-                                  required
-                                ></textarea>
-                                <label
-                                  class='form-label'
-                                  for='form4Example3'
-                                  name='message'
-                                >
-                                  Message
-                                </label>
-                              </div>
-                            </div>
-                            <div class='modal-footer'>
-                              <button
-                                type='submit'
-                                class='btn btn-info btn-block mb-4'
-                              >
-                                Send <i className='fa fa-paper-plane'></i>
-                              </button>
-                            </div>
-                          </form> */}
-                        </div>
-                      </div>
-                    </div>
                   </li>
                   <li className='nav-item'>
                     <div class='dropdown'>
@@ -815,6 +714,48 @@ function Dashboard() {
         <div className='col-md-10 pb-5' style={{ background: "#FDFAE3", marginLeft: '16.666667%', width: '83.333333%' }}>
           <div className='tab-content' id='v-pills-tabContent'>
             {renderTabContent()}
+          </div>
+        </div>
+      </div>
+
+      {/* Help & Support Modal - Placed at root level to avoid z-index conflicts */}
+      <div
+        className='modal fade'
+        id='exampleModal'
+        tabIndex='-1'
+        aria-labelledby='exampleModalLabel'
+        aria-hidden='true'
+        data-mdb-backdrop='true'
+        data-mdb-keyboard='true'
+        style={{ zIndex: 1060 }}
+      >
+        <div className='modal-dialog modal-dialog-centered'>
+          <div className='modal-content'>
+            <div className='modal-header'>
+              <h5 className='modal-title' id='exampleModalLabel'>
+                Got questions? Contact us
+              </h5>
+              <button
+                type='button'
+                className='btn-close'
+                data-mdb-dismiss='modal'
+                aria-label='Close'
+              ></button>
+            </div>
+            <div className='modal-body' style={{ paddingLeft: "25px" }}>
+              <h6 style={{ marginBottom: "25px" }}>
+                <span className='key'>
+                  <i className='fa-solid fa-phone'></i>&nbsp; Call:
+                </span>
+                &nbsp;&nbsp;&nbsp;&nbsp; +91 639-450-6912
+              </h6>
+              <h6>
+                <span className='key'>
+                  <i className='fa-solid fa-envelope'></i>&nbsp; Email:
+                </span>
+                &nbsp;&nbsp;&nbsp;&nbsp; support@mentorify.com
+              </h6>
+            </div>
           </div>
         </div>
       </div>
