@@ -13,7 +13,10 @@
   },
   "scripts": {
     "start": "NODE_ENV=production node server/app.js",
-    "dev": "NODE_ENV=development nodemon server/app.js"
+    "dev": "NODE_ENV=development nodemon server/app.js",
+    "db:test": "node scripts/testConnection.js",
+    "db:init": "node scripts/initializeDatabase.js",
+    "db:view": "node scripts/viewDatabase.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
