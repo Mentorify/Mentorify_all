@@ -50,8 +50,8 @@ sudo systemctl start mongod
 # Navigate to server directory
 cd unified-server
 
-# Install dependencies
-npm install
+# Install dependencies (use --legacy-peer-deps to handle peer dependency conflicts)
+npm install --legacy-peer-deps
 
 # Create environment file
 cp env.example .env
@@ -59,6 +59,8 @@ cp env.example .env
 # Edit .env file with your settings
 # Required: Update DATABASE, SECRET_KEY, and EMAIL credentials
 ```
+
+> **Note:** The project includes `.npmrc` files that configure npm to use the public registry (`https://registry.npmjs.org/`). This ensures the project can be built in any environment, including GitHub Actions. If you encounter registry issues, see `NPM_REGISTRY_FIX.md` for troubleshooting.
 
 **Minimum required .env configuration:**
 ```env
@@ -86,8 +88,8 @@ Open a **new terminal window**:
 # Navigate to client directory (from project root)
 cd unified-client
 
-# Install dependencies
-npm install
+# Install dependencies (use --legacy-peer-deps to handle peer dependency conflicts)
+npm install --legacy-peer-deps
 
 # Create environment file
 cp env.example .env

@@ -15,13 +15,17 @@ jobs:
 
 
       - name: Configure Node
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: "20.x"
+          registry-url: 'https://registry.npmjs.org/'
+
+      - name: Configure npm to use public registry
+        run: npm config set registry https://registry.npmjs.org/
 
       - name: Install Dependencies
         run: |
-          npm ci
+          npm install --legacy-peer-deps
         working-directory: ./unified-client
 
       - name: Build Project
@@ -44,7 +48,8 @@ jobs:
           port: 22
           script: |
             cd ~/unified-server # Assuming your backend is in the 'server' directory
-            npm install
+            npm config set registry https://registry.npmjs.org/
+            npm install --legacy-peer-deps
             pm2 start app.js # Replace 'server.js' with your backend entry point
             pm2 save # Save the PM2 process list    
 
