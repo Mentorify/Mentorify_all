@@ -46,13 +46,15 @@ jobs:
           key: ${{ secrets.EC2_PRIVATE_KEY }}
           port: 22
           script: |
-            cd ~/unified-server # Assuming your backend is in the 'server' directory
+            cd ~/unified-server
             npm config set registry https://registry.npmjs.org/
             npm install --legacy-peer-deps
-            pm2 start app.js # Replace 'server.js' with your backend entry point
-            pm2 save # Save the PM2 process list    
+            pm2 stop mentorify-backend || true
+            pm2 delete mentorify-backend || true
+            pm2 start server/app.js --name mentorify-backend
+            pm2 save    
 
-      - name: Restart PM2
+      - name: Verify Backend Status
         uses: appleboy/ssh-action@master
         with:
           host: 13.200.170.243
@@ -61,8 +63,8 @@ jobs:
           key: ${{ secrets.EC2_PRIVATE_KEY }}
           script: |
             cd ~/unified-server
-            pm2 status # Check PM2 status for debugging
-            pm2 restart all
+            pm2 status
+            pm2 logs mentorify-backend --lines 50 --nostream
 
       - name: Remove private key file
         run: rm key.pem
