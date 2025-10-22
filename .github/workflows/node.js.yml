@@ -44,6 +44,27 @@ jobs:
           scp -o StrictHostKeyChecking=no -i key.pem -r ./unified-client/build ubuntu@13.200.170.243:~/unified-server/
           scp -o StrictHostKeyChecking=no -i key.pem ./nginx.conf ubuntu@13.200.170.243:~/
 
+      - name: Fix File Permissions for Nginx
+        uses: appleboy/ssh-action@master
+        with:
+          host: 13.200.170.243
+          username: ubuntu
+          key: ${{ secrets.EC2_PRIVATE_KEY }}
+          port: 22
+          script: |
+            # Allow nginx to traverse home directory
+            chmod 755 /home/ubuntu
+            chmod 755 /home/ubuntu/unified-server
+            chmod 755 /home/ubuntu/unified-server/build
+            
+            # Set proper permissions for all directories in build
+            find /home/ubuntu/unified-server/build -type d -exec chmod 755 {} \;
+            
+            # Set proper permissions for all files in build
+            find /home/ubuntu/unified-server/build -type f -exec chmod 644 {} \;
+            
+            echo "✅ Permissions fixed for nginx access"
+
       - name: Configure Nginx
         uses: appleboy/ssh-action@master
         with:
