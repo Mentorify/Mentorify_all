@@ -636,56 +636,59 @@ function Dashboard() {
 
             <div class='collapse navbar-collapse' id='navbarButtonsExample'>
               <div
-                class='d-flex align-items-center'
+                className='d-flex align-items-center'
                 style={{
                   marginLeft: "auto",
                 }}
               >
                 <ul className='navbar-nav mb-2 mb-lg-0'>
-                  <li class='nav-item'>
+                  <li className='nav-item'>
                     <a
-                      class='nav-link'
+                      className='nav-link'
                       href='#'
                       data-mdb-toggle='modal'
                       data-mdb-target='#exampleModal'
+                      role='button'
                     >
                       <i className='fas fa-info-circle'></i> &nbsp;&nbsp;Help &
                       support
                     </a>
 
                     <div
-                      class='modal fade'
+                      className='modal fade'
                       id='exampleModal'
-                      tabindex='-1'
+                      tabIndex='-1'
                       aria-labelledby='exampleModalLabel'
                       aria-hidden='true'
+                      data-mdb-backdrop='true'
+                      data-mdb-keyboard='true'
                     >
-                      <div class='modal-dialog'>
-                        <div class='modal-content'>
-                          <div class='modal-header'>
-                            <h5 class='modal-title' id='exampleModalLabel'>
+                      <div className='modal-dialog'>
+                        <div className='modal-content'>
+                          <div className='modal-header'>
+                            <h5 className='modal-title' id='exampleModalLabel'>
                               Got questions? Contact us
                             </h5>
                             <button
                               type='button'
-                              class='btn-close'
+                              className='btn-close'
                               data-mdb-dismiss='modal'
                               aria-label='Close'
                             ></button>
                           </div>
                           <div
                             style={{ paddingLeft: "25px" }}
-                            class='modal-body'
+                            className='modal-body'
                           >
                             <h6 style={{ marginBottom: "25px" }}>
-                              <span class='key'>
-                                <i class='fa-solid fa-phone'></i>&nbsp; Call:
+                              <span className='key'>
+                                <i className='fa-solid fa-phone'></i>&nbsp; Call:
                               </span>
                               &nbsp;&nbsp;&nbsp;&nbsp; +91 639-450-6912
                             </h6>
                             <h6>
-                              <span class='key'>
-                                <i class='fa-solid fa-envelope'></i>&nbsp;
+                              <span className='key'>
+                                <i className='fa-solid fa-envelope'></i>&nbsp;
                                 Email:
                               </span>
                               &nbsp;&nbsp;&nbsp;&nbsp; support@mentorify.com
