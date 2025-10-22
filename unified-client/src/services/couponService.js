@@ -1,6 +1,7 @@
 import api from '../api';
 
-const COUPON_API_BASE = '/api/coupons';
+// Note: api instance already has baseURL='/api', so we only need the endpoint path
+const COUPON_API_BASE = '/coupons';
 
 export const couponService = {
   // Get all coupons

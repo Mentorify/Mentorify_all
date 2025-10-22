@@ -68,7 +68,7 @@ const Login = () => {
 
     setIsLoading(true)
     try {
-      const response = await api.post("/api/forgot-password/send-otp", { email })
+      const response = await api.post("/forgot-password/send-otp", { email })
       window.alert(response.data.message)
       setForgotPasswordStep(2)
     } catch (error) {
@@ -98,7 +98,7 @@ const Login = () => {
 
     setIsLoading(true)
     try {
-      const response = await api.post("/api/forgot-password/verify-otp", { 
+      const response = await api.post("/forgot-password/verify-otp", { 
         email, 
         otp, 
         newPassword 
