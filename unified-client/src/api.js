@@ -1,7 +1,9 @@
 import axios from 'axios';
 
-// Base URL for API calls - ALWAYS use port 5020
-const API_BASE_URL = 'http://localhost:5020';
+// Base URL for API calls
+// In production (when REACT_APP_API_URL is empty or '/api'), use nginx proxy
+// In development, use localhost:5020
+const API_BASE_URL = process.env.REACT_APP_API_URL || '/api';
 
 // Create axios instance with optimized config
 const api = axios.create({

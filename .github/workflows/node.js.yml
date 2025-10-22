@@ -27,6 +27,11 @@ jobs:
           npm ci --legacy-peer-deps
         working-directory: ./unified-client
 
+      - name: Configure Production Environment
+        run: |
+          echo "REACT_APP_API_URL=/api" > .env.production
+        working-directory: ./unified-client
+
       - name: Build Project
         run: CI=false npm run build
         working-directory: ./unified-client
@@ -37,6 +42,32 @@ jobs:
           chmod 400 key.pem
           scp -o StrictHostKeyChecking=no -i key.pem -r ./unified-server/ ubuntu@13.200.170.243:~/
           scp -o StrictHostKeyChecking=no -i key.pem -r ./unified-client/build ubuntu@13.200.170.243:~/unified-server/
+          scp -o StrictHostKeyChecking=no -i key.pem ./nginx.conf ubuntu@13.200.170.243:~/
+
+      - name: Configure Nginx
+        uses: appleboy/ssh-action@master
+        with:
+          host: 13.200.170.243
+          username: ubuntu
+          key: ${{ secrets.EC2_PRIVATE_KEY }}
+          port: 22
+          script: |
+            # Copy nginx config to sites-available
+            sudo cp ~/nginx.conf /etc/nginx/sites-available/mentorify
+            
+            # Remove default nginx site if it exists
+            sudo rm -f /etc/nginx/sites-enabled/default
+            
+            # Create symlink to enable the site
+            sudo ln -sf /etc/nginx/sites-available/mentorify /etc/nginx/sites-enabled/mentorify
+            
+            # Test nginx configuration
+            sudo nginx -t
+            
+            # Reload nginx
+            sudo systemctl reload nginx
+            
+            echo "✅ Nginx configured and reloaded successfully"
 
       - name: Install Backend Dependencies and Start Backend
         uses: appleboy/ssh-action@master
