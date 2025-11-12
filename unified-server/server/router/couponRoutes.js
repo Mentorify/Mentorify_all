@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Coupon = require('../model/couponSchema');
 const User = require('../model/userSchema');
+const { Authenticate } = require('../services/middleware/authenticate');
 
 // GET /api/coupons - Get all coupons
 router.get('/', async (req, res) => {
@@ -438,10 +439,11 @@ router.get('/stats', async (req, res) => {
   }
 });
 
-// POST /api/coupons/validate - Validate coupon code
-router.post('/validate', async (req, res) => {
+// POST /api/coupons/validate - Validate coupon code (requires authentication)
+router.post('/validate', Authenticate, async (req, res) => {
   try {
     const { couponCode } = req.body;
+    const userId = req.userData._id;
 
     if (!couponCode) {
       return res.status(400).json({ 
@@ -462,8 +464,26 @@ router.post('/validate', async (req, res) => {
       });
     }
 
-    // Check if coupon has reached max usage
-    if (coupon.maxUses && coupon.usageCount >= coupon.maxUses) {
+    // For specific coupons, check if user is in assignedUsers list
+    if (coupon.type === 'specific') {
+      const isAssigned = coupon.assignedUsers.some(
+        assignedUserId => assignedUserId.toString() === userId.toString()
+      );
+      if (!isAssigned) {
+        return res.status(403).json({ 
+          valid: false,
+          message: 'This coupon is not assigned to you' 
+        });
+      }
+    }
+
+    // Check if user has already used this coupon
+    const hasUserUsedCoupon = coupon.usedBy.some(
+      entry => entry.user.toString() === userId.toString()
+    );
+
+    // Check if coupon has reached max unique users (only if user hasn't used it before)
+    if (!hasUserUsedCoupon && coupon.maxUses && coupon.usageCount >= coupon.maxUses) {
       return res.status(400).json({ 
         valid: false,
         message: 'Coupon has reached maximum usage limit' 
@@ -477,7 +497,8 @@ router.post('/validate', async (req, res) => {
       type: coupon.type,
       maxUses: coupon.maxUses,
       usageCount: coupon.usageCount,
-      expiryDate: coupon.expiryDate
+      expiryDate: coupon.expiryDate,
+      alreadyUsedByUser: hasUserUsedCoupon
     });
 
   } catch (error) {
@@ -490,9 +511,11 @@ router.post('/validate', async (req, res) => {
 });
 
 // POST /api/coupons/use - Use coupon (when user takes test)
-router.post('/use', async (req, res) => {
+// This endpoint now counts unique users, not test attempts
+router.post('/use', Authenticate, async (req, res) => {
   try {
     const { couponCode } = req.body;
+    const userId = req.userData._id;
 
     if (!couponCode) {
       return res.status(400).json({ 
@@ -512,31 +535,55 @@ router.post('/use', async (req, res) => {
       });
     }
 
-    // Check if coupon has reached max usage
+    // For specific coupons, verify user is in assignedUsers list
+    if (coupon.type === 'specific') {
+      const isAssigned = coupon.assignedUsers.some(
+        assignedUserId => assignedUserId.toString() === userId.toString()
+      );
+      if (!isAssigned) {
+        return res.status(403).json({ 
+          message: 'This coupon is not assigned to you' 
+        });
+      }
+    }
+
+    // Check if this user has already used the coupon
+    const hasUserUsedCoupon = coupon.usedBy.some(
+      entry => entry.user.toString() === userId.toString()
+    );
+
+    if (hasUserUsedCoupon) {
+      // User has already used this coupon - allow access but don't increment count
+      return res.json({
+        message: 'Coupon access granted (already used by you)',
+        usageCount: coupon.usageCount,
+        maxUses: coupon.maxUses,
+        alreadyUsed: true
+      });
+    }
+
+    // New user - check if coupon has reached max unique users
     if (coupon.maxUses && coupon.usageCount >= coupon.maxUses) {
       return res.status(400).json({ 
         message: 'Coupon has reached maximum usage limit' 
       });
     }
 
-    // Increment usage count and add to usedBy array
+    // First time this user is using the coupon
+    // Increment usage count and add user to usedBy array
     coupon.usageCount += 1;
-    
-    // Only add to usedBy if we have a user ID
-    const userId = req.user?.id || req.body.userId;
-    if (userId) {
-      coupon.usedBy.push({
-        user: userId,
-        usedAt: new Date()
-      });
-    }
+    coupon.usedBy.push({
+      user: userId,
+      usedAt: new Date()
+    });
 
     await coupon.save();
 
     res.json({
       message: 'Coupon used successfully',
       usageCount: coupon.usageCount,
-      maxUses: coupon.maxUses
+      maxUses: coupon.maxUses,
+      alreadyUsed: false
     });
 
   } catch (error) {
