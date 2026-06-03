@@ -40,14 +40,14 @@ jobs:
         run: |
           echo "${{ secrets.EC2_PRIVATE_KEY }}" > key.pem
           chmod 400 key.pem
-          scp -o StrictHostKeyChecking=no -i key.pem -r ./unified-server/ ubuntu@13.200.170.243:~/
-          scp -o StrictHostKeyChecking=no -i key.pem -r ./unified-client/build ubuntu@13.200.170.243:~/unified-server/
-          scp -o StrictHostKeyChecking=no -i key.pem ./nginx.conf ubuntu@13.200.170.243:~/
+          scp -o StrictHostKeyChecking=no -i key.pem -r ./unified-server/ ubuntu@3.108.110.129:~/
+          scp -o StrictHostKeyChecking=no -i key.pem -r ./unified-client/build ubuntu@3.108.110.129:~/unified-server/
+          scp -o StrictHostKeyChecking=no -i key.pem ./nginx.conf ubuntu@3.108.110.129:~/
 
       - name: Fix File Permissions for Nginx
         uses: appleboy/ssh-action@master
         with:
-          host: 13.200.170.243
+          host: 3.108.110.129
           username: ubuntu
           key: ${{ secrets.EC2_PRIVATE_KEY }}
           port: 22
@@ -68,7 +68,7 @@ jobs:
       - name: Configure Nginx
         uses: appleboy/ssh-action@master
         with:
-          host: 13.200.170.243
+          host: 3.108.110.129
           username: ubuntu
           key: ${{ secrets.EC2_PRIVATE_KEY }}
           port: 22
@@ -93,7 +93,7 @@ jobs:
       - name: Install Backend Dependencies and Start Backend
         uses: appleboy/ssh-action@master
         with:
-          host: 13.200.170.243
+          host: 3.108.110.129
           username: ubuntu
           key: ${{ secrets.EC2_PRIVATE_KEY }}
           port: 22
@@ -109,7 +109,7 @@ jobs:
       - name: Verify Backend Status
         uses: appleboy/ssh-action@master
         with:
-          host: 13.200.170.243
+          host: 3.108.110.129
           username: ubuntu
           port: 22
           key: ${{ secrets.EC2_PRIVATE_KEY }}
