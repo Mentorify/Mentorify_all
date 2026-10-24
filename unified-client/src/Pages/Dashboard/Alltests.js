@@ -57,16 +57,8 @@ export default function Alltests({ userData }) {
         <div className='card-body'>
           <h3>Student assessments</h3>
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam
-            dignissimos, hic eius qui vel cupiditate fugiat inventore autem
-            aliquid magnam! Cumque quidem repudiandae pariatur labore possimus
-            nesciunt dicta dolor qui corrupti autem, hic magnam expedita soluta
-            corporis veritatis cupiditate, aliquid voluptate, deleniti eum
-            minima. Distinctio odit provident qui maiores exercitationem,
-            ratione a impedit ea quaerat dolorem in quod excepturi doloremque
-            ad? Veniam iure distinctio nemo mollitia deserunt qui quasi nobis
-            excepturi assumenda impedit, minus consectetur laboriosam et culpa!
-            Incidunt, doloribus!
+            Student Assessments are structured evaluation tools designed to systematically measure a student's academic progress, core competencies, and career aptitude. By analyzing these assessments, educators and mentors can identify individual strengths, areas for improvement, and innate interests, enabling personalized guidance. Ultimately, this comprehensive evaluation process bridges the gap between a student's current capabilities and their future professional aspirations,
+            ensuring informed decision-making and holistic career development.
           </p>
         </div>
       </div>
